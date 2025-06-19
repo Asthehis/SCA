@@ -4,7 +4,8 @@ gpt4all/
 venv_whisperx_gpu/
 __pycache__/
 *.zip
-*.json
+secrets.json
 *.run
 *.xz
 *.txt
+*.vscode
