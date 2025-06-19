@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Analyse Médicale</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="dashboard">
+    <h1>Bienvenue, {{ user }}</h1>
+
+    <!-- Formulaire de chargement du fichier -->
+    <form id="uploadForm" enctype="multipart/form-data">
+      <label>Fichier audio (.m4a)</label>
+      <input type="file" id="audioFile" name="file" accept=".m4a" required>
+      <button type="submit">Charger le fichier</button>
+    </form>
+
+    <!-- Étapes du pipeline, affichées progressivement -->
+    <div id="pipelineSteps" style="margin-top: 20px; display: none;">
+      <button id="btnTranscription" class="btn-green">1. Transcription & Diarisation</button>
+      <button id="btnComprehension" class="btn-green" style="display: none;">2. Compréhension</button>
+      <button id="btnScore" class="btn-green" style="display: none;">3. Score Final</button>
+    </div>
+
+    <!-- Zone de résultat -->
+    <div id="resultContainer" style="display: none; margin-top: 20px;">
+      <h3>Résultat :</h3>
+      <pre id="outputText" style="background:#f5f5f5; padding:10px; border-radius:5px;"></pre>
+    </div>
+
+   <button id="actionBtn" style="display:none; margin-top: 20px;">Voir l'action à effectuer</button>
+
+<div id="actionContainer" style="display:none; margin-top:20px;">
+  <div id="actionBox" style="padding:20px; border-radius:10px; font-weight:bold; font-size:20px; text-align:center;">
+    <!-- Résultat affiché ici -->
+  </div>
+</div>
+
+
+    <a href="/logout">Se déconnecter</a>
+  </div>
+
+  <script src="/static/js/scripts.js"></script>
+</body>
+</html>

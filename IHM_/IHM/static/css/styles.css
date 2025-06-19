@@ -1,0 +1,258 @@
+/* Styles communs */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* LOGIN PAGE */
+.login-container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+input, button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+/* DASHBOARD */
+.dashboard {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+}
+
+.dashboard h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.dashboard p {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.result-box {
+  background: #f1f4f8;
+  padding: 25px;
+  border-radius: 12px;
+  margin-top: 20px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+}
+
+.result-box h3 {
+  margin: 0;
+  color: #34495e;
+}
+
+.result-box p {
+  margin: 10px 0 0 0;
+  color: #2980b9;
+  font-weight: bold;
+}
+
+.dashboard a {
+  display: inline-block;
+  margin-top: 25px;
+  text-decoration: none;
+  color: #3498db;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.dashboard a:hover {
+  color: #2ecc71;
+}
+
+/* UPLOAD FORM */
+#uploadForm {
+  margin-bottom: 20px;
+}
+
+#uploadForm input[type="file"] {
+  margin-top: 15px;
+  padding: 10px;
+}
+
+#uploadForm button {
+  margin-top: 10px;
+}
+
+/* RESULT CONTAINER */
+#resultContainer {
+  margin-top: 30px;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+  text-align: left;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+#resultContainer pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+}
+/* Styles communs */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* LOGIN PAGE */
+.login-container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+input, button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+/* DASHBOARD */
+.dashboard {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+}
+
+.dashboard h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.dashboard p {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.result-box {
+  background: #f1f4f8;
+  padding: 25px;
+  border-radius: 12px;
+  margin-top: 20px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+}
+
+.result-box h3 {
+  margin: 0;
+  color: #34495e;
+}
+
+.result-box p {
+  margin: 10px 0 0 0;
+  color: #2980b9;
+  font-weight: bold;
+}
+
+.dashboard a {
+  display: inline-block;
+  margin-top: 25px;
+  text-decoration: none;
+  color: #3498db;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.dashboard a:hover {
+  color: #2ecc71;
+}
+
+/* UPLOAD FORM */
+#uploadForm {
+  margin-bottom: 20px;
+}
+
+#uploadForm input[type="file"] {
+  margin-top: 15px;
+  padding: 10px;
+}
+
+#uploadForm button {
+  margin-top: 10px;
+}
+
+/* RESULT CONTAINER */
+#resultContainer {
+  margin-top: 30px;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+  text-align: left;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+#resultContainer pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+}
