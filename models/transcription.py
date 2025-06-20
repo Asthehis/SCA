@@ -2,45 +2,47 @@ import whisperx
 import gc
 import torch
 
+# on détermine les constantes importantes
 device = "cuda"
 audio_file = "data/raw/Audio-SCA-1.wav"
 batch_size = 16
 compute_type = "float16"
 
-# Chargement du modèle whisperX
+# chargement du modèle whisperX
 model = whisperx.load_model("large-v2", device, compute_type=compute_type)
 
-# Transcription de l'audio
+# transcription de l'audio
 audio = whisperx.load_audio(audio_file)
 result = model.transcribe(audio, batch_size=batch_size)
 segments = result["segments"]
 print(segments)
 
-# On supprime le modèle
+# on supprime le modèle
 gc.collect()
 torch.cuda.empty_cache()
 del model
 
-# Align segments
+# alignement des segments
 model_a, metadata = whisperx.load_align_model(language_code=result["language"], device=device)
 result = whisperx.align(segments, model_a, metadata, audio, device, return_char_alignments=False)
 
 segments = result["segments"]
 print(segments)
 
-# On supprime le modèle
+# on supprime le modèle
 gc.collect()
 torch.cuda.empty_cache()
 del model_a
 
-# Format as dialogue-style transcript with timestamps
+# affichage du texte sous forme de dialogue avec les time code
 print("\n==== Transcription ====\n")
-for i, segment in enumerate(segments):
+for i, segment in enumerate(segments): # on parcourt les segments générés plus tôt
+    print(segment)
     start = segment["start"]
     end = segment["end"]
-    text = segment["text"].strip()
+    text = segment["text"].strip() # pour chaque segment on récupère le temps et le texte
     
-    # Format time as MM:SS
+    # on affiche le temps sous le format mm:ss
     def format_time(seconds):
         minutes = int(seconds // 60)
         sec = int(seconds % 60)

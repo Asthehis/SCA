@@ -1,10 +1,10 @@
 import json
 import re
 import os
-from gpt4all import GPT4All
+from llama_cpp import Llama
 
-# Génération du modèle
-model = GPT4All("orca-mini-3b-gguf2-q4_0.gguf", device='cuda')
+model = Llama(model_path="models/mistral-7b-instruct-v0.2.Q5_K_M.gguf", verbose=False)
+
 
 # Fonctions utilitaires
 def load_keywords(file_path):
@@ -80,16 +80,24 @@ def is_positive_response(context, keyword):
     prompt = (
         f"Voici un extrait de conversation contenant le mot '{keyword}':\n"
         f"{context}\n"
-        f"Le mot '{keyword}' est-il utilisé ici de manière affirmative ou négative ? "
-        f"Répondez strictement par 'affirmative' ou 'négative'."
-    ) # On rédige un prompt à l'IA gpt4all
+        f"Le mot '{keyword}' est-il utilisé ici de manière affirmative (positive) ou négative ?\n"
+        f"Répondez strictement par 'affirmative' ou 'négative'. Un seul mot. Aucune explication.\n"
+        f"Réponse :"
+    ) # On rédige un prompt à l'IA 
 
-    response = model.generate(prompt, max_tokens=30) # L'IA analyse le prompt et y apporte une réponse
+    response = model(prompt, max_tokens=5, stop=["\n"])  # LlamaCpp retourne un dictionnaire
+    answer = response["choices"][0]["text"].strip().lower()
+
     print(f"\nContexte analysé :\n{context}")
-    print(response)
-    print(f"Réponse locale : {response.strip()}\n") # Affichage du contexte et de la réponse
+    print(f"Réponse locale : {answer}\n")
 
-    return "affirmative" in response.lower() 
+    if "affirmative" in answer:
+        return True
+    elif "négative" in answer:
+        return False
+    else:
+        print(f"Réponse ambiguë ou inattendue : {answer}")
+        return False
 
 
 def analyze_transcript(transcript, keywords):
@@ -116,8 +124,6 @@ def analyze_transcript(transcript, keywords):
 
                 if is_positive_response(context, matched): # Si le mots clés est valide alors on l'ajoute au dic
                     validated_words[base_word] = entry.get("severity", "N/A")
-                else:
-                    print(f"Négation ou incertitude pour '{matched}'")
 
     return validated_words
 

@@ -21,7 +21,7 @@ for item in non_sca_data["keywords"]:
     for synonym in item["synonyms"]:
         non_sca_severite[synonym] = item["severity"]
 
-# 📂 Lire les mots détectés depuis les deux fichiers de sortie
+# Lire les mots détectés depuis les deux fichiers de sortie
 def read_detected_words(filepath):
     try:
         with open(filepath, "r", encoding="utf-8") as f:
@@ -33,8 +33,6 @@ def read_detected_words(filepath):
 
 mots_sca = read_detected_words("mots_dits_sca.txt")
 mots_non_sca = read_detected_words("mots_dits_non_sca.txt")
-
-
 
 # Simuler un texte complet pour l'extraction d'âge/genre
 # Lire directement le texte complet depuis le fichier original si possible
