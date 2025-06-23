@@ -2,7 +2,7 @@
     "keywords":[
         {
             "word": "homme",
-            "synonyms": ["Mari", "frère", "fils", "époux", "compagnon", "père" ],
+            "synonyms": ["mari", "frère", "fils", "époux", "compagnon", "père" ],
             "role": "patient",
             "trigger": ["mon", "je suis"],
             "severity": 5
@@ -29,9 +29,9 @@
             "severity": 5
         },
         {
-            "word": "Douleur constrictive rétrosternale ",
-            "synonyms": ["En barre ", "Oppression", "Pesanteur", "poids", "étau", "serrement", "serre", "comprime", "compression", 
-            "Poitrine", "douleur à gauche", "douleur au sein gauche"],
+            "word": "douleur constrictive rétrosternale ",
+            "synonyms": ["en barre ", "oppression", "pesanteur", "poids", "étau", "serrement", "serre", "comprime", "compression", 
+            "poitrine", "douleur à gauche", "douleur au sein gauche"],
             "role": "patient",
             "trigger": ["oui", "j'ai"],
             "severity": 5
@@ -60,21 +60,21 @@
         },
         {
             "word": "irradie dans le bras gauche",
-            "synonyms": ["douleur dans le bras gauche", "mal dans le bras gauche"],
+            "synonyms": ["douleur dans le bras gauche", "mal dans le bras gauche", "picotements dans le bras gauche"],
             "role": "patient",
             "trigger": ["oui", "j'ai", "ça"],
             "severity": 5
         },
         {
             "word": "irradie dans le bras droit",
-            "synonyms": ["douleur dans le bras droit", "mal dans le bras droit", "picotement dans le bras droit", "fourmillement dans le bras droit", "gène dans le bras droit"],
+            "synonyms": ["douleur dans le bras droit", "mal dans le bras droit", "picotements dans le bras droit", "fourmillement dans le bras droit", "gène dans le bras droit"],
             "role": "patient",
             "trigger": ["oui", "j'ai", "ça"],
             "severity": 5
         },
         {
             "word": "irradie dans l'épaule",
-            "synonyms": ["douleur dans l'épaule'", "mal dans l'épaule'", "picotement dans l'épaule'", "fourmillement dans l'épaule'", "gène dans l'épaule'"],
+            "synonyms": ["douleur dans l'épaule", "mal dans l'épaule", "picotement dans l'épaule", "fourmillement dans l'épaule", "gène dans l'épaule"],
             "role": "patient",
             "trigger": ["oui", "j'ai", "ça"],
             "severity": 5
@@ -87,15 +87,15 @@
             "severity": 5
         },
         {
-            "word": "irradie dans la machoire",
-            "synonyms": ["douleur dans la machoire", "mal à la machoire"],
+            "word": "irradie dans la mâchoire",
+            "synonyms": ["douleur dans la mâchoire", "mal à la mâchoire", "engourdissement au niveau de la mâchoire", "engourdissement de la mâchoire"],
             "role": "patient",
             "trigger": ["oui", "j'ai"],
             "severity": 5
         },
         {
             "word": "douleur permanente",
-            "synonyms": ["douleur continue", "douleur constante","douleur consistante", "douleur persistante", "douleur aigue", "douleur diffuse" ],
+            "synonyms": ["douleur continue", "douleur constante","douleur consistante", "douleur persistante", "douleur aigue", "douleur diffuse", "j'ai mal en continu"],
             "role": "patient",
             "trigger": ["oui", "j'ai", "je ressens"],
             "severity": 5
@@ -115,14 +115,14 @@
             "severity": 5
         },
         {
-            "word": "Antécédent personnel infarctus du myocarde / stent",
+            "word": "antécédent personnel infarctus du myocarde / stent",
             "synonyms": ["infarctus", "stents", "même douleur que précedemment", "antécedent d'infarctus", "antécedent de crise cardiaque", "douleur identique à l'infarctus", "stent", "angioplastie", "opération du coeur"],
             "role": "patient",
             "trigger": ["oui", "j'ai", "je ressens"],
             "severity": 5
         },
         {
-            "word": "Polyvasculaires",
+            "word": "polyvasculaires",
             "synonyms": ["stents dans les jambes", "pontage dans les jambes", "stent dans la carotide"],
             "role": "patient",
             "trigger": ["oui", "j'ai", "je ressens"],
@@ -151,7 +151,7 @@
         },
         {
             "word": "HTAl",
-            "synonyms": ["Hypertendu","hypertension", "je prends des médicaments pour l’hypertension", "médicament pour la tension", "traitement pour la tension"],
+            "synonyms": ["hypertendu","hypertension", "je prends des médicaments pour l’hypertension", "médicament pour la tension", "traitement pour la tension"],
             "role": "patient",
             "trigger": ["oui", "j'ai", ""],
             "severity": 4
@@ -164,57 +164,57 @@
             "severity": 3
         },
         {
-            "word": "Hérédité familiale ",
-            "synonyms": ["Mon père a fait un infarctus","ma mère a fait un infarctus", "mon frère a fait un infarctus", "ma sœur a fait un infarctus "],
+            "word": "hérédité familiale ",
+            "synonyms": ["mon père a fait un infarctus","ma mère a fait un infarctus", "mon frère a fait un infarctus", "ma sœur a fait un infarctus "],
             "role": "patient",
             "trigger": ["oui", "j'ai", ""],
             "severity": 4
         },
         {
-            "word": "Gris",
-            "synonyms": ["pâleur","Pâle", "grisatre"],
+            "word": "gris",
+            "synonyms": ["pâleur","pâle", "grisatre"],
             "role": "patient",
             "trigger": ["oui", "j'ai", ""],
             "severity": 3
         },
         {
-            "word": "Nausées",
-            "synonyms": ["Vomissement","envie de vomir", "vomir", "haut le coeur"],
+            "word": "nausées",
+            "synonyms": ["vomissement","envie de vomir", "vomir", "haut le coeur"],
             "role": "patient",
             "trigger": ["oui", "j'ai", ""],
             "severity": 3
         },
         {
-            "word": "Effort",
+            "word": "effort",
             "synonyms": ["après un effort","exercice", "sport", "exercice", "marche", "course", "vélo", "douleur à l'effort"],
             "role": "patient",
             "trigger": ["oui", "j'ai", ""],
             "severity": 5
         },
         {
-            "word": "Trinitrine",
-            "synonyms": ["Spray", "bouffée", "patch de discotrine", "amélioration de la douleur après trinitrine", "boufée", "natispray"],
+            "word": "trinitrine",
+            "synonyms": ["spray", "bouffée", "patch de discotrine", "amélioration de la douleur après trinitrine", "boufée", "natispray"],
             "role": "patient",
             "trigger": ["oui", "j'ai", ""],
             "severity": 4
         },
         {
-            "word": "Impression de mourir",
-            "synonyms": ["Je me sens partir"],
+            "word": "impression de mourir",
+            "synonyms": ["je me sens partir"],
             "role": "patient",
             "trigger": ["oui", "j'ai", ""],
             "severity": 3
         },
         {
             "word": "dyspnée",
-            "synonyms": ["Essoufflé", "essoufflement", "du mal à respirer", "difficultés à respirer",  "difficultés pour parler", "du mal à parler"],
+            "synonyms": ["essoufflé", "essoufflement", "du mal à respirer", "difficultés à respirer",  "difficultés pour parler", "du mal à parler"],
             "role": "patient",
             "trigger": ["oui", "j'ai", ""],
             "severity": 2
         },
         {
-            "word": "Anxiété",
-            "synonyms": ["Crise d’angoisse", "stress", "je suis stressé", "douleur différente de crise d’angoisse", "pas la même douleur que l’angoisse"],
+            "word": "anxiété",
+            "synonyms": ["crise d’angoisse", "stress", "je suis stressé", "douleur différente de crise d’angoisse", "pas la même douleur que l’angoisse"],
             "role": "patient",
             "trigger": ["oui", "j'ai", ""],
             "severity": 2

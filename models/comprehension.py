@@ -110,6 +110,7 @@ def analyze_transcript(transcript, keywords):
     
     for i, line in enumerate(transcript): # transcript : liste de dic, enumerate : 
         # print("line:", line)
+        # print(line["text"])
         for entry in keywords: # On parcourt les mots-clés
             base_word = entry.get("word", "")
             matched_words = get_matched_keywords(line["text"], entry) # On regarde si des mots clés match avec les mots dans une ligne
@@ -151,7 +152,7 @@ if __name__ == "__main__":
 
     transcript_path = f"data/raw/Audio-SCA-1_diarized.txt"
     transcript = load_transcript(transcript_path)
-    #print(transcript)
+    # print(transcript)
 
     print("Analyse des mots-clés SCA...")
     validated_sca = analyze_transcript(transcript, sca_keywords)

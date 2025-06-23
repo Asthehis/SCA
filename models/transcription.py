@@ -53,6 +53,6 @@ with open(output_txt, "w", encoding="utf-8") as f:
         print(f"[{format_time(start)} - {format_time(end)}] {text}")
 
         # Sauvegarde finale
-        f.write(f"[{format_time(start)} - {format_time(end)}] {text}\n")
+        f.write(f"[{format_time(start)} - {format_time(end)}] : {text}\n")
 
 print(f" Transcription avec diarisation enregistrée dans : {output_txt}")
