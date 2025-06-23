@@ -1,7 +1,7 @@
 cuda/
 cudnn-linux-x86_64-8.6.0.163_cuda11-archive/
 gpt4all/
-venv_whisperx_gpu/
+venv_sca/
 __pycache__/
 *.zip
 secrets.json
@@ -10,3 +10,5 @@ secrets.json
 *.txt
 *.vscode
 mistral-7b-instruct-v0.2.Q5_K_M.gguf
+23032024_juin/
+A_TRIER/

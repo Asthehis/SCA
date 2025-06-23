@@ -53,9 +53,9 @@ def get_matched_keywords(text, keyword_entry):
         - "synonyms" : une liste de synonymes (optionnelle)
 
     Exemple :
-    keyword_entry = {"word": "chat", "synonyms": ["félin", "minou"]}
-    text = "Le chat dort sur le canapé. Le félin est mignon."
-    => retourne ["chat", "félin"]
+    keyword_entry = {"word": "homme", "synonyms": ["Mari", "frère", "fils", "époux", "compagnon", "père" ]}
+    text = "Mon mari a mal à la poitrine."
+    => retourne ["mari"]
     """
     keywords = [keyword_entry.get("word", "")] + keyword_entry.get("synonyms", []) # On fait une liste avec tous les mots clés et leurs synonymes
     return [ #Liste en compréhension : on garde uniquement les mots détectés dans le texte
@@ -149,13 +149,7 @@ if __name__ == "__main__":
     non_sca_keywords = load_keywords("data/non_sca_words.json")
     # print(non_sca_keywords)
 
-    try:
-        with open("data/last_filename.txt", "r", encoding="utf-8") as f:
-            filename = f.read().strip()
-    except FileNotFoundError:
-        raise FileNotFoundError("Fichier 'last_filename.txt' introuvable.")
-
-    transcript_path = f"data/raw/{filename.replace('.m4a', '_diarized.txt')}"
+    transcript_path = f"data/raw/Audio-SCA-1_diarized.txt"
     transcript = load_transcript(transcript_path)
     #print(transcript)
 
