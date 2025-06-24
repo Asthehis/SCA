@@ -72,7 +72,7 @@ def get_matched_keywords(text, keyword_entry):
 def is_positive_response(context, keyword):
     """
     Cette fonction permet de déterminer si une réponse est positive ou non.
-    Elle renvoie la réponse 'affirmative'.
+    Elle renvoie un booléen. True si la réponse est affirmative, false sinon.
 
     -context : le contexte contenant le mot clé, la phrase où est détecté le mot et les 2 phrases avant et après.
     -keyword : le mot clé présent dans la phrase et en cours d'analyse
