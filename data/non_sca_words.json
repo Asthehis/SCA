@@ -2,7 +2,7 @@
     "keywords":[
         {
             "word": "type de douleur",
-            "synonyms": ["en pointe", "en coup de poignard", "en picotement", "picotement", "coup d’aiguille", "ça pique" ],
+            "synonyms": ["en pointe", "en coup de poignard", "en picotement", "picotement", "coup d’aiguille", "ça pique"],
             "role": "patient",
             "trigger": ["oui", "j'ai"],
             "severity": 5
@@ -16,14 +16,14 @@
         },
         {
             "word": "basi thoracique",
-            "synonyms": ["sous les côtes" ],
+            "synonyms": ["sous les côtes"],
             "role": "patient",
             "trigger": ["oui", "j'ai"],
             "severity": 4
         },
         {
             "word": "douleur reproduite à la palpation",
-            "synonyms": ["douleur quand j'ai bouge" ],
+            "synonyms": ["douleur quand j'ai bouge"],
             "role": "patient",
             "trigger": ["oui", "j'ai"],
             "severity": 4

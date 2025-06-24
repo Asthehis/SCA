@@ -23,7 +23,7 @@
         },
         {
             "word": "tabagisme",
-            "synonyms": ["je fume", "tabac", "cigarette", "1 paquet"],
+            "synonyms": ["je fume", "tabac", "cigarette", "1 paquet", "un paquet"],
             "role": "patient",
             "trigger": ["oui", "j'ai"],
             "severity": 5
@@ -158,9 +158,9 @@
         },
         {
             "word": "obésité",
-            "synonyms": ["surpoids"],
+            "synonyms": ["surpoids", "obèse"],
             "role": "patient",
-            "trigger": ["oui", "j'ai", "ça"],
+            "trigger": ["oui", "j'ai", "ça", "je suis"],
             "severity": 3
         },
         {
