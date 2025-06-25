@@ -1,10 +1,11 @@
 import json
 import re
 import os
-from llama_cpp import Llama
+from pathlib import Path
+from llama_cpp import Llama 
 
-model = Llama(model_path="models/mistral-7b-instruct-v0.2.Q5_K_M.gguf", verbose=False)
-
+MODEL_PATH = "models/mistral-7b-instruct-v0.2.Q5_K_M.gguf"  
+USE_MISTRAL_FOR_LABELS = True  # permet de labeliser le dataset automatiquement
 
 # Fonctions utilitaires
 def load_keywords(file_path):
@@ -42,40 +43,31 @@ def load_transcript(file_path):
     return transcript
 
 
-def get_matched_keywords(text, keyword_entry):
+def get_keywords_in_text(text, entry):
     """
-    Cette fonction permet d'obtenir les mots-clés (et synonymes) présents dans une phrase. 
-    Retourne les mots-clés détectés dans le texte.
+    Cette fonction permet de trouver les mots clés dans le texte.
+    Elle renvoie une liste en compréhension.
 
-    - text : le texte dans lequel on cherche les mots.
-    - keyword_entry : un dictionnaire contenant :
-        - "word" : le mot-clé principal
-        - "synonyms" : une liste de synonymes (optionnelle)
-
-    Exemple :
-    keyword_entry = {"word": "homme", "synonyms": ["Mari", "frère", "fils", "époux", "compagnon", "père" ]}
-    text = "Mon mari a mal à la poitrine."
-    => retourne ["mari"]
+    - text : la transcription où l'on cherche les mots clés
+    - entry : la base de données de mots clés
     """
-    keywords = [keyword_entry.get("word", "")] + keyword_entry.get("synonyms", []) # On fait une liste avec tous les mots clés et leurs synonymes
-    return [ #Liste en compréhension : on garde uniquement les mots détectés dans le texte
-        word for word in keywords 
-        if word and re.search( # Expression pour rechercher le mot dans 'text' (ici la phrase)
-            rf"\b{re.escape(word)}\b", # \b = délimiteur de mot entier (ex : dou ne matchera pas douleur)
-            text, 
-            re.IGNORECASE # ignore maj et min
-        )
+    all_words = [entry["word"]] + entry.get("synonyms", [])
+    return [
+        w for w in all_words
+        if re.search(rf"\b{re.escape(w)}\b", text, re.IGNORECASE)
     ]
 
 
-
-def is_positive_response(context, keyword):
+def format_context(transcript, start_idx, window=2):
     """
-    Cette fonction permet de déterminer si une réponse est positive ou non.
-    Elle renvoie un booléen. True si la réponse est affirmative, false sinon.
+    """
+    start = max(start_idx - window, 0)
+    end = min(start_idx + window + 1, len(transcript))
+    return " ".join(f"{line['speaker']} : {line['text']}" for line in transcript[start:end])
 
-    -context : le contexte contenant le mot clé, la phrase où est détecté le mot et les 2 phrases avant et après.
-    -keyword : le mot clé présent dans la phrase et en cours d'analyse
+
+def ask_mistral(context, keyword, model):
+    """
     """
     prompt = (
         f"Voici un extrait de conversation contenant le mot '{keyword}':\n"
@@ -83,84 +75,56 @@ def is_positive_response(context, keyword):
         f"Le mot '{keyword}' est-il utilisé ici de manière affirmative (positive) ou négative ?\n"
         f"Répondez strictement par 'affirmative' ou 'négative'. Un seul mot. Aucune explication.\n"
         f"Réponse :"
-    ) # On rédige un prompt à l'IA 
-
-    response = model(prompt, max_tokens=5, stop=["\n"])  # LlamaCpp retourne un dictionnaire
-    answer = response["choices"][0]["text"].strip().lower()
-
-    print(f"\nContexte analysé :\n{context}")
-    print(f"Réponse locale : {answer}\n")
-
-    if "affirmative" in answer:
-        return True
-    elif "négative" in answer:
-        return False
-    else:
-        print(f"Réponse ambiguë ou inattendue : {answer}")
-        return False
+    )
+    result = model(prompt, max_tokens=5)
+    return result["choices"][0]["text"].strip().lower()
 
 
-def analyze_transcript(transcript, keywords):
+def generate_dataset(transcript_path, keywords_path, output_jsonl):
     """
-    Retourne le dic des mots clés valides.
-    -transcript : la transcription de l'audio à analyser
-    -keywords : les mots-clés
     """
-    validated_words = {} # dic vide qui va être remplis par les mots-clés validés
-    
-    for i, line in enumerate(transcript): # transcript : liste de dic, enumerate : 
-        # print("line:", line)
-        # print(line["text"])
-        for entry in keywords: # On parcourt les mots-clés
-            base_word = entry.get("word", "")
-            matched_words = get_matched_keywords(line["text"], entry) # On regarde si des mots clés match avec les mots dans une ligne
-
-            for matched in matched_words: # On vérifie maintenant que les mots 'matché' sont valides ou non
-                print(f"Mot trouvé : '{matched}' (lié à '{base_word}') à la ligne {i + 1}")
-                # Contexte local (2 lignes avant et 2 après)
-                start = max(i - 2, 0)
-                end = min(i + 3, len(transcript))
-                context_lines = [f"{l['speaker']} : {l['text']}" for l in transcript[start:end]]
-                context = "\n".join(context_lines)
-
-                if is_positive_response(context, matched): # Si le mots clés est valide alors on l'ajoute au dic
-                    validated_words[base_word] = entry.get("severity", "N/A")
-
-    return validated_words
-
-
-def save_validated_words(validated_words, output_file):
-    """
-    Cette fonction permet de sauvegarder les mots-clés validés.
-    Créé un fichier .txt avec les mots et leur sévérité.
-
-    -validated_words : liste des mots-clés validés
-    -output_file : le chemin où sera sauvegarder le fichier
-    """
-    with open(output_file, "w", encoding="utf-8") as file:
-        for word, severity in validated_words.items():
-            file.write(f"{word} (Sévérité: {severity})\n")
-
-
-# Script principal
-if __name__ == "__main__":
-
-    sca_keywords = load_keywords("data/sca_words.json")
-    # print(sca_keywords)
-    non_sca_keywords = load_keywords("data/non_sca_words.json")
-    # print(non_sca_keywords)
-
-    transcript_path = f"data/raw/Audio-SCA-1_diarized.txt"
     transcript = load_transcript(transcript_path)
-    # print(transcript)
+    keywords = load_keywords(keywords_path)
+    dataset = []
 
-    print("Analyse des mots-clés SCA...")
-    validated_sca = analyze_transcript(transcript, sca_keywords)
+    model = None
+    if USE_MISTRAL_FOR_LABELS:
+        model = Llama(model_path=MODEL_PATH, verbose=False, n_ctx=32768)
 
-    print("\nAnalyse des mots-clés NON-SCA...")
-    validated_non_sca = analyze_transcript(transcript, non_sca_keywords)
+    for i, line in enumerate(transcript):
+        for entry in keywords:
+            matched = get_keywords_in_text(line["text"], entry)
+            for kw in matched:
+                context = format_context(transcript, i)
+                label = None
+                if USE_MISTRAL_FOR_LABELS:
+                    answer = ask_mistral(context, kw, model)
+                    if answer in ["affirmative", "négative", "affirmative.", "négative."]:
+                        label = answer
+                    else:
+                        label = "ambigue"
+                else:
+                    label = "TODO"
 
-    save_validated_words(validated_sca, "mots_dits_sca.txt")
-    save_validated_words(validated_non_sca, "mots_dits_non_sca.txt")
+                dataset.append({
+                    "context": context,
+                    "keyword": kw,
+                    "label": label
+                })
 
-    print("\nMots-clés validés enregistrés dans les fichiers de sortie.")
+    with open(output_jsonl, "a", encoding="utf-8") as f:
+        for example in dataset:
+            f.write(json.dumps(example, ensure_ascii=False) + "\n")
+
+    print(f"{len(dataset)} exemples écrits dans {output_jsonl}")
+
+
+# main
+if __name__ == "__main__":
+    transcript_dir = "data/transcript"
+    keyword_path = "data/sca_non_sca_words.json"
+    output_path = "training_data.jsonl"
+    for file_name in os.listdir(transcript_dir):
+        if file_name.lower().endswith(".txt"):
+            transcript_path = os.path.join(transcript_dir, file_name)
+            generate_dataset(transcript_path=transcript_path, keywords_path=keyword_path, output_jsonl=output_path)

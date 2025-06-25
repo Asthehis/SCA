@@ -1,0 +1,719 @@
+{
+    "keywords": [
+        {
+            "word": "homme",
+            "synonyms": [
+                "mari",
+                "frère",
+                "fils",
+                "époux",
+                "compagnon",
+                "père"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "43 ans",
+            "synonyms": [
+                "44 ans",
+                "45 ans",
+                "46 ans",
+                "47 ans",
+                "48 ans",
+                "49 ans",
+                "50 ans",
+                "51 ans",
+                "52 ans",
+                "53 ans",
+                "54 ans",
+                "55 ans",
+                "56 ans",
+                "57 ans"
+            ],
+            "severity": 4,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "58 ans",
+            "synonyms": [
+                "59 ans",
+                "60 ans",
+                "61 ans",
+                "62 ans",
+                "63 ans",
+                "64 ans",
+                "65 ans",
+                "66 ans",
+                "67 ans",
+                "68 ans",
+                "69 ans",
+                "70 ans",
+                "71 ans",
+                "72 ans",
+                "73 ans",
+                "74 ans",
+                "75 ans",
+                "76 ans",
+                "77 ans",
+                "78 ans",
+                "79 ans",
+                "80 ans",
+                "81 ans",
+                "82 ans",
+                "83 ans",
+                "84 ans",
+                "85 ans",
+                "86 ans",
+                "87 ans",
+                "88 ans",
+                "89 ans",
+                "90 ans",
+                "91 ans",
+                "92 ans",
+                "93 ans",
+                "94 ans",
+                "95 ans",
+                "96 ans",
+                "97 ans",
+                "98 ans",
+                "99 ans",
+                "100 ans",
+                "101 ans",
+                "102 ans",
+                "103 ans",
+                "104 ans",
+                "105 ans",
+                "106 ans"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "tabagisme",
+            "synonyms": [
+                "je fume",
+                "tabac",
+                "cigarette",
+                "1 paquet",
+                "un paquet"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": true
+        },
+        {
+            "word": "douleur constrictive rétrosternale ",
+            "synonyms": [
+                "en barre ",
+                "oppression",
+                "oppresse",
+                "pesanteur",
+                "poids",
+                "étau",
+                "serrement",
+                "serre",
+                "comprime",
+                "compression",
+                "poitrine",
+                "douleur à gauche",
+                "douleur au sein gauche"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "douleur thoracique",
+            "synonyms": [
+                "douleur à la poitrine",
+                "douleur au milieu de la poitrine",
+                "brule la poitrine",
+                "oppression thoracique",
+                "pique la poitrine",
+                "serre la poitrine",
+                "appui sur la poitrine",
+                "mal à la poitrine",
+                "mal au niveau du thorax",
+                "poids sur la poitrine",
+                "coup de poignard",
+                "douleur constrictive",
+                "sensation de pesanteur",
+                "douleur dans le torse",
+                "pointe au coeur",
+                "douleur à type de serrement",
+                "douleur à type de coups",
+                "douleur à type de poing"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "douleur épigastrique",
+            "synonyms": [
+                "douleur au ventre",
+                "douleur gastrique",
+                "brulure gastrique",
+                "douleur au ventre"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "inaugurale",
+            "synonyms": [
+                "c'est la première fois"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "irradie dans le bras gauche",
+            "synonyms": [
+                "douleur dans le bras gauche",
+                "mal dans le bras gauche",
+                "picotements dans le bras gauche",
+                "fourmillement dans le bras droit",
+                "gène dans le bras droit"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "irradie dans le bras droit",
+            "synonyms": [
+                "douleur dans le bras droit",
+                "mal dans le bras droit",
+                "picotements dans le bras droit",
+                "fourmillement dans le bras droit",
+                "gène dans le bras droit"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "irradie dans l'épaule",
+            "synonyms": [
+                "douleur dans l'épaule",
+                "mal dans l'épaule",
+                "picotement dans l'épaule",
+                "fourmillement dans l'épaule",
+                "gêne dans l'épaule"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "irradie dans la gorge",
+            "synonyms": [
+                "douleur dans la gorge",
+                "mal à la gorge",
+                "picotement dans la gorge",
+                "fourmillement dans la gorge",
+                "gêne dans la gorge"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "irradie dans la mâchoire",
+            "synonyms": [
+                "douleur dans la mâchoire",
+                "mal à la mâchoire",
+                "engourdissement au niveau de la mâchoire",
+                "engourdissement de la mâchoire",
+                "gêne dans la mâchoire"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "douleur permanente",
+            "synonyms": [
+                "douleur continue",
+                "douleur constante",
+                "douleur consistante",
+                "douleur persistante",
+                "douleur aigue",
+                "douleur diffuse",
+                "j'ai mal en continu"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "douleur intense",
+            "synonyms": [
+                "7 sur 10",
+                "8 sur 10",
+                "9 sur 10",
+                "10 sur 10",
+                "ça fait très très mal",
+                "très fort"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "transpiration",
+            "synonyms": [
+                "sueurs",
+                "sudations",
+                "je transpire",
+                "je sue"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "antécédent personnel infarctus du myocarde / stent",
+            "synonyms": [
+                "infarctus",
+                "stents",
+                "même douleur que précedemment",
+                "antécedent d'infarctus",
+                "antécedent de crise cardiaque",
+                "douleur identique à l'infarctus",
+                "stent",
+                "angioplastie",
+                "opération du coeur"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "polyvasculaires",
+            "synonyms": [
+                "stents dans les jambes",
+                "pontage dans les jambes",
+                "stent dans la carotide"
+            ],
+            "severity": 4,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "douleur à la palpation",
+            "synonyms": [],
+            "severity": 3,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "diabète",
+            "synonyms": [
+                "médicaments pour le diabète",
+                "je prends de l'insuline",
+                "diabétique"
+            ],
+            "severity": 4,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": true
+        },
+        {
+            "word": "cholestérol",
+            "synonyms": [
+                "traitement pour le cholestérol"
+            ],
+            "severity": 4,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": true
+        },
+        {
+            "word": "hypertension artérielle",
+            "synonyms": [
+                "hypertendu",
+                "hypertension",
+                "je prends des médicaments pour l’hypertension",
+                "médicament pour la tension",
+                "traitement pour la tension"
+            ],
+            "severity": 4,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": true
+        },
+        {
+            "word": "obésité",
+            "synonyms": [
+                "surpoids",
+                "obèse"
+            ],
+            "severity": 3,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": true
+        },
+        {
+            "word": "hérédité familiale ",
+            "synonyms": [
+                "mon père a fait un infarctus",
+                "ma mère a fait un infarctus",
+                "mon frère a fait un infarctus",
+                "ma sœur a fait un infarctus "
+            ],
+            "severity": 4,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": true
+        },
+        {
+            "word": "gris",
+            "synonyms": [
+                "pâleur",
+                "pâle",
+                "grisatre"
+            ],
+            "severity": 3,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "nausées",
+            "synonyms": [
+                "vomissement",
+                "envie de vomir",
+                "vomir",
+                "haut le coeur"
+            ],
+            "severity": 3,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "effort",
+            "synonyms": [
+                "après un effort",
+                "exercice",
+                "sport",
+                "marche",
+                "course",
+                "vélo",
+                "douleur à l'effort"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "trinitrine",
+            "synonyms": [
+                "spray",
+                "bouffée",
+                "patch de discotrine",
+                "amélioration de la douleur après trinitrine",
+                "boufée",
+                "natispray"
+            ],
+            "severity": 4,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "impression de mourir",
+            "synonyms": [
+                "je me sens partir"
+            ],
+            "severity": 3,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "dyspnée",
+            "synonyms": [
+                "essoufflé",
+                "essoufflement",
+                "du mal à respirer",
+                "difficultés à respirer",
+                "difficultés pour parler",
+                "du mal à parler"
+            ],
+            "severity": 2,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "anxiété",
+            "synonyms": [
+                "crise d’angoisse",
+                "stress",
+                "je suis stressé",
+                "douleur différente de crise d’angoisse",
+                "pas la même douleur que l’angoisse"
+            ],
+            "severity": 2,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "douleur à l'effort",
+            "synonyms": [
+                "douleur pendant l'effort", 
+                "douleur à la marche", 
+                "douleur en montant les escaliers"
+            ],
+            "severity": 3,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "douleur au repos",
+            "synonyms": [
+                "douleur sans rien faire", 
+                "douleur au calme", 
+                "douleur sans bouger"
+            ],
+            "severity": 3,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "bradycardie",
+            "synonyms": [
+                "le coeur bat lentement", 
+                "pouls faible", 
+                "pouls lent"
+            ],
+            "severity": 3,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "tachycardie",
+            "synonyms": [
+                "palpitations", 
+                "le coeur s'emballe", 
+                "rythme cardiaque rapide"
+            ],
+            "severity": 3,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "sueurs froides",
+            "synonyms": [
+                "transpiration inhabituelle"
+            ],
+            "severity": 3,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "trouble de conscience",
+            "synonyms": [
+                "perte de connaissance", 
+                "évanoui", 
+                "malaise", 
+                "malaises"
+            ],
+            "severity": 3,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "vertiges",
+            "synonyms": [
+                "tête qui tourne", 
+                "étourdissement"
+            ],
+            "severity": 3,
+            "catégorie_diagnostic": "SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "type de douleur",
+            "synonyms": [
+                "en pointe",
+                "en coup de poignard",
+                "en picotement",
+                "picotement",
+                "coup d’aiguille",
+                "ça pique"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "non-SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "durée de la douleur",
+            "synonyms": [
+                "brève",
+                "j’ai plus mal"
+            ],
+            "severity": 4,
+            "catégorie_diagnostic": "non-SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "douleur basithoracique",
+            "synonyms": [
+                "sous les côtes"
+            ],
+            "severity": 4,
+            "catégorie_diagnostic": "non-SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "douleur reproduite à la palpation",
+            "synonyms": [
+                "douleur quand je bouge"
+            ],
+            "severity": 4,
+            "catégorie_diagnostic": "non-SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "douleur modifiée par les mouvements",
+            "synonyms": [
+                "douleur aggravée ou soulagée par certains mouvements du thorax",
+                "du bras ou du dos",
+                "effort musculaire"
+            ],
+            "severity": 4,
+            "catégorie_diagnostic": "non-SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "douleur soulagée par les antalgiques de palier 1 ou par les anxiolytiques",
+            "synonyms": [
+                "soulagée par le doliprane",
+                "le perfalgan",
+                "atarax",
+                "lexomil"
+            ],
+            "severity": 4,
+            "catégorie_diagnostic": "non-SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "pas d'antécédents",
+            "synonyms": [
+                "pas de diabète",
+                "pas de cholestérol",
+                "pas de tabagisme",
+                "je ne fume pas",
+                "je ne prends pas de médicaments"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "non-SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "pouls asymétrique",
+            "synonyms": [],
+            "severity": 2,
+            "catégorie_diagnostic": "non-SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "dyspnée",
+            "synonyms": [
+                "essoufflé",
+                "essoufflement",
+                "du mal à respirer",
+                "difficultés à respirer",
+                "difficultés pour parler",
+                "du mal à parler"
+            ],
+            "severity": 3,
+            "catégorie_diagnostic": "non-SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "fièvre",
+            "synonyms": [
+                "température",
+                "fébrile"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "non-SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "toux",
+            "synonyms": [
+                "toux sèche",
+                "toux grasse",
+                "je tousse"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "non-SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "antibiothérapie",
+            "synonyms": [
+                "je prends des antibiotiques"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "non-SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "18 ans",
+            "synonyms": [
+                "18 ans",
+                "19 ans",
+                "20 ans",
+                "21 ans",
+                "22 ans",
+                "23 ans",
+                "24 ans",
+                "25 ans",
+                "26 ans",
+                "27 ans",
+                "28 ans",
+                "29 ans",
+                "30 ans",
+                "31 ans",
+                "32 ans",
+                "33 ans",
+                "34 ans",
+                "35 ans",
+                "36 ans",
+                "37 ans",
+                "38 ans",
+                "39 ans",
+                "40 ans",
+                "41 ans",
+                "42 ans",
+                "43 ans"
+            ],
+            "severity": 4,
+            "catégorie_diagnostic": "non-SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "courbatures",
+            "synonyms": [
+                "j’ai mal partout"
+            ],
+            "severity": 5,
+            "catégorie_diagnostic": "non-SCA",
+            "terrain_à_risque": false
+        },
+        {
+            "word": "anxiété",
+            "synonyms": [
+                "stress",
+                "crise d’angoisse",
+                "même douleur que crise d’angoisse"
+            ],
+            "severity": 3,
+            "catégorie_diagnostic": "non-SCA",
+            "terrain_à_risque": false
+        }
+    ]
+}
