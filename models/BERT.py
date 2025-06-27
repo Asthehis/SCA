@@ -2,10 +2,10 @@ import json
 import re
 import os
 import torch
-from transformers import AutoTokenizer, CamembertForSequenceClassification
+from transformers import CamembertTokenizer, CamembertForSequenceClassification
 
-tokenizer = AutoTokenizer.from_pretrained("almanach/camembert-base")
-model = CamembertForSequenceClassification.from_pretrained("almanach/camembert-base")
+tokenizer = CamembertTokenizer.from_pretrained("./camembert_custom_model")
+model = CamembertForSequenceClassification.from_pretrained("./camembert_custom_model")
 
 # Fonctions utilitaires
 def load_keywords(file_path):

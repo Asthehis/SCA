@@ -12,11 +12,12 @@ def transcription(audio_file):
     """
     # on détermine les constantes importantes
     device = "cuda"
-    batch_size = 16
+    batch_size = 4
     compute_type = "float16"
+    language = "fr"
 
     # chargement du modèle whisperX
-    model = whisperx.load_model("large-v2", device, compute_type=compute_type)
+    model = whisperx.load_model("large-v2", device, compute_type=compute_type, language=language)
 
     # transcription de l'audio
     audio = whisperx.load_audio(audio_file)
@@ -63,9 +64,9 @@ def transcription(audio_file):
 
 # script principal
 if __name__ == "__main__":
-    audio_dir = "data/audio"
+    audio_dir = "data/audio/hospital"
     for file_name in os.listdir(audio_dir):
-        if file_name.lower().endswith(".wav"):
+        if file_name.lower().endswith("_cleaned.wav"):
             audio_path = os.path.join(audio_dir, file_name)
             print(f"\nTranscription de : {audio_path}")
-            transcription(audio_path)
+            transcription(audio_path) 
