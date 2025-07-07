@@ -42,7 +42,31 @@ def transcription(audio_file):
     torch.cuda.empty_cache()
     del model_a
 
-   # format de temps, permet d'afficher les timecodes
+    transcription_text = " ".join([seg["text"].strip() for seg in segments])
+    avg_logprobs = [seg["avg_logprob"] for seg in segments if "avg_logprob" in seg]
+    global_conf = sum(avg_logprobs) / len(avg_logprobs) if avg_logprobs else -999
+    rejeter = False
+
+    if len(transcription_text.strip()) < 10:
+        rejeter = True
+    if global_conf < -1.2:
+        rejeter = True
+    avg_count = sum(1 for avg in avg_logprobs if avg > 0.6)
+    if avg_count > len(avg_logprobs) / 2:
+        rejeter = True
+
+    print(f"→ Confiance : {global_conf:.2f} | Longueur : {len(transcription_text.strip())} | Rejeté : {rejeter}")
+
+    if not rejeter:
+        save_to_txt(audio_file, segments)
+    else:
+        with open("data/transcript/rejected_transcriptions.txt", "a") as f:
+            f.write(f"REJECTED: {audio_file}\n")
+
+    return transcription_text, rejeter
+
+def save_to_txt(audio_file, segments):
+    # format de temps, permet d'afficher les timecodes
     def format_time(seconds):
         minutes = int(seconds // 60)
         sec = int(seconds % 60)

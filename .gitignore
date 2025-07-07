@@ -13,3 +13,5 @@ data/
 camembert_custom_model/
 results/
 silero_vad_model.pt
+plots/
+*.csv
