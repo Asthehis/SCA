@@ -25,14 +25,16 @@ def process_audio_pipeline(audio_path):
         return
 
     # Transcription
-    transcriber = Transcriber(processor.cleaned_path)
-    transcriber.transcribe()
-    transcriber.save_transcript()
-    print("Audio traité avec succès.")
+    #transcriber = Transcriber(processor.cleaned_path)
+    #transcriber.transcribe()
+    #transcriber.save_transcript()
+    #print("Audio traité avec succès.")
 
 if __name__ == "__main__":
-    clean()
+    # clean()
     input_dir = "data/audio/hospital"
     for fname in os.listdir(input_dir):
-        if fname.endswith(".wav"):
+        if fname.endswith("_cleaned.wav"):
+            continue
+        else:
             process_audio_pipeline(os.path.join(input_dir, fname))

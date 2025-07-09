@@ -5,15 +5,32 @@ import csv
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.fft import rfft, rfftfreq
-from scipy.signal import iirnotch, lfilter
+from scipy.signal import lfilter, butter
 
 MIN_RMS = 1400
-MAX_SATURATION_FRAMES = 3 
+MAX_SATURATION_FRAMES = 4
+
+def band_pass_filter(samples, sr, lowcut, highcut, order=2):
+    nyq = 0.5 * sr
+    low = lowcut / nyq
+    high = highcut / nyq
+    b, a = butter(order, [low, high], btype='band')
+    return lfilter(b, a, samples)
+
+def boost_high_freq(samples, sr):
+    band = band_pass_filter(samples, sr, 3000, 6000)
+    boosted = samples + 1.2 * band
+    return boosted
+
+def attenuate_low_freq(samples, sr):
+    low_band = band_pass_filter(samples, sr, 50, 250)
+    cleaned = samples - 0.8 * low_band
+    return cleaned
 
 class AudioProcessor:
     def __init__(self, audio_path, verbose=True):
         self.audio_path = audio_path
-        self.cleaned_path = audio_path.replace(".wav", "_cleaned.wav")
+        self.cleaned_path = audio_path.replace(".wav", "_freq_cleaned.wav")
         self.original_audio = AudioSegment.from_wav(audio_path)
         self.preprocessed_audio = None
         self.val_model = load_silero_vad()
@@ -25,6 +42,7 @@ class AudioProcessor:
         self.mean_freq = 0
         self.bandwidth = 0
         self.verbose = verbose
+        self.enhanced_samples = None
 
     def preprocess(self):
         audio = self.original_audio
@@ -33,14 +51,39 @@ class AudioProcessor:
         audio = effects.compress_dynamic_range(audio, threshold=-16.0, ratio=4.0)
         self.preprocessed_audio = effects.normalize(audio, headroom=4.0)
 
+    def enhance_clarity(self):
+        samples = np.array(self.preprocessed_audio.get_array_of_samples()).astype(np.float32)
+        sr = self.preprocessed_audio.frame_rate
+
+        if self.preprocessed_audio.channels == 2:
+            samples = samples.reshape((-1, 2))
+            samples = samples.mean(axis=1)
+
+        samples = attenuate_low_freq(samples, sr)
+        samples = boost_high_freq(samples, sr)
+
+        samples = np.clip(samples, -32768, 32767)
+
+        samples_int16 = samples.astype(np.int16)
+        processed_audio = AudioSegment(
+            samples_int16.tobytes(), 
+            frame_rate=sr,
+            sample_width=2,
+            channels=1
+        )
+
+        self.preprocessed_audio = processed_audio
+        self.enhanced_samples = samples
+
     def analyze_quality(self):
         audio = self.preprocessed_audio
         self.rms = audio.rms
 
-        samples = np.array(audio.get_array_of_samples()).astype(np.float32)
-        if audio.channels == 2:
-            samples = samples.reshape((-1, 2))
-            samples = samples.mean(axis=1)
+        samples = getattr(self, "enhanced_samples", None)
+        if samples is None:
+            samples = np.array(audio.get_array_of_samples()).astype(np.float32)
+            if audio.channels == 2:
+                samples = samples.reshape((-1, 2)).mean(axis=1)
 
         max_sample = max(abs(s) for s in samples)
         self.saturation_count = sum(1 for s in samples if abs(s) >= max_sample * 0.98)
@@ -68,7 +111,7 @@ class AudioProcessor:
         self.mean_freq = np.sum(xf * yf) / np.sum(yf)
         self.bandwidth = np.sqrt(np.sum(((xf - self.mean_freq) ** 2) * yf) / np.sum(yf))
 
-        self.save_plot(samples, sr, xf, yf)
+        # self.save_plot(samples, sr, xf, yf)
 
     def save_plot(self, samples, sr, xf, yf):
         base = os.path.splitext(os.path.basename(self.audio_path))[0]
@@ -90,6 +133,17 @@ class AudioProcessor:
         plt.tight_layout()
         os.makedirs("plots", exist_ok=True)
         plt.savefig(f"plots/{base}.png")
+        plt.close()
+
+        bands = [(0, 250), (250, 500), (500, 1000), (1000, 3000), (3000, 6000), (6000, 8000)]
+        energy = [np.sum(yf[(xf >= low) & (xf < high)]) for low, high in bands]
+        labels = ["<250", "250–500", "500–1k", "1k–3k", "3k–6k", "6k–8k"]
+
+        plt.bar(labels, energy)
+        plt.title("Frequency Band Energy")
+        plt.ylabel("Magnitude")
+        plt.tight_layout()
+        plt.savefig(f"plots/{base}_bands.png")
         plt.close()
 
     def apply_vad(self):
@@ -135,8 +189,9 @@ class AudioProcessor:
 
     def process(self):
         self.preprocess()
+        self.enhance_clarity()
         self.analyze_quality()
         if not self.should_reject:
             self.apply_vad()
-        self.log_to_csv()
+        # self.log_to_csv()
         return not self.should_reject
