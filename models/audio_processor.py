@@ -3,34 +3,21 @@ from silero_vad import load_silero_vad, read_audio, get_speech_timestamps
 import os
 import csv
 import numpy as np
+import matplotlib
+matplotlib.use("Agg")  # Utilise un backend non-GUI, adapté au multithreading
+
 import matplotlib.pyplot as plt
 from scipy.fft import rfft, rfftfreq
-from scipy.signal import lfilter, butter
+from pedalboard import Pedalboard, HighpassFilter, LowpassFilter, Compressor, NoiseGate, Reverb
+from pedalboard.io import AudioFile
 
 MIN_RMS = 1400
 MAX_SATURATION_FRAMES = 4
 
-def band_pass_filter(samples, sr, lowcut, highcut, order=2):
-    nyq = 0.5 * sr
-    low = lowcut / nyq
-    high = highcut / nyq
-    b, a = butter(order, [low, high], btype='band')
-    return lfilter(b, a, samples)
-
-def boost_high_freq(samples, sr):
-    band = band_pass_filter(samples, sr, 3000, 6000)
-    boosted = samples + 1.2 * band
-    return boosted
-
-def attenuate_low_freq(samples, sr):
-    low_band = band_pass_filter(samples, sr, 50, 250)
-    cleaned = samples - 0.8 * low_band
-    return cleaned
-
 class AudioProcessor:
     def __init__(self, audio_path, verbose=True):
         self.audio_path = audio_path
-        self.cleaned_path = audio_path.replace(".wav", "_freq_cleaned.wav")
+        self.cleaned_path = audio_path.replace(".wav", "_cleaned.wav")
         self.original_audio = AudioSegment.from_wav(audio_path)
         self.preprocessed_audio = None
         self.val_model = load_silero_vad()
@@ -45,61 +32,56 @@ class AudioProcessor:
         self.enhanced_samples = None
 
     def preprocess(self):
-        audio = self.original_audio
-        audio = effects.low_pass_filter(audio, 1300)
-        audio = effects.high_pass_filter(audio, 150)
-        audio = effects.compress_dynamic_range(audio, threshold=-16.0, ratio=4.0)
-        self.preprocessed_audio = effects.normalize(audio, headroom=4.0)
+        with AudioFile(self.audio_path) as f:
+            audio = f.read(f.frames) 
+            sr = f.samplerate
 
-    def enhance_clarity(self):
-        samples = np.array(self.preprocessed_audio.get_array_of_samples()).astype(np.float32)
-        sr = self.preprocessed_audio.frame_rate
+            board = Pedalboard([
+                HighpassFilter(cutoff_frequency_hz=100),
+                LowpassFilter(cutoff_frequency_hz=1300),
+                Compressor(threshold_db=-20, ratio=3.0),
+                NoiseGate(threshold_db=-45, ratio=3.0),
+                Reverb(room_size=0.1, damping=0.8, wet_level=0.05, dry_level=0.95),
+            ])
+            effected = board(audio, sample_rate=sr)
 
-        if self.preprocessed_audio.channels == 2:
-            samples = samples.reshape((-1, 2))
-            samples = samples.mean(axis=1)
-
-        samples = attenuate_low_freq(samples, sr)
-        samples = boost_high_freq(samples, sr)
-
-        samples = np.clip(samples, -32768, 32767)
-
-        samples_int16 = samples.astype(np.int16)
-        processed_audio = AudioSegment(
-            samples_int16.tobytes(), 
-            frame_rate=sr,
-            sample_width=2,
+        # Convertir les données audio en AudioSegment directement
+        # effected est un array numpy, on le convertit en bytes pour pydub
+        if len(effected.shape) == 1:
+            # Mono
+            effected = effected.reshape(1, -1)
+        
+        # Convertir en int16 pour pydub, clip pour éviter la saturation
+        effected_clipped = np.clip(effected * 32767, -32767, 32767).astype(np.int16)
+        
+        # Créer un AudioSegment à partir des données
+        audio_segment = AudioSegment(
+            effected_clipped.tobytes(),
+            frame_rate=int(sr),
+            sample_width=2,  # 16-bit = 2 bytes
             channels=1
         )
-
-        self.preprocessed_audio = processed_audio
-        self.enhanced_samples = samples
+        
+        self.preprocessed_audio = effects.normalize(audio_segment, headroom=6.0)
 
     def analyze_quality(self):
         audio = self.preprocessed_audio
         self.rms = audio.rms
 
-        samples = getattr(self, "enhanced_samples", None)
-        if samples is None:
-            samples = np.array(audio.get_array_of_samples()).astype(np.float32)
-            if audio.channels == 2:
-                samples = samples.reshape((-1, 2)).mean(axis=1)
+        samples = np.array(audio.get_array_of_samples()).astype(np.float32)
+        if audio.channels == 2:
+            samples = samples.reshape((-1, 2)).mean(axis=1)
 
-        max_sample = max(abs(s) for s in samples)
-        self.saturation_count = sum(1 for s in samples if abs(s) >= max_sample * 0.98)
+        if len(samples) > 0:
+            samples = samples / np.max(np.abs(samples)) if np.max(np.abs(samples)) > 0 else samples
+
+        max_sample = np.max(np.abs(samples))
+        self.saturation_count = np.sum(np.abs(samples) >= max_sample * 0.95)
 
         self.analyze_frequency(samples, audio.frame_rate)
 
         if self.rms < MIN_RMS or self.saturation_count > MAX_SATURATION_FRAMES:
             self.should_reject = True
-        
-        if self.verbose:
-            print(f"Durée: {self.duration_sec:.2f}s")
-            print(f"RMS: {self.rms}")
-            print(f"Saturation frames: {self.saturation_count}")
-            print(f"Dominant freq: {self.dominant_freq:.1f} Hz")
-            print(f"Mean freq: {self.mean_freq:.1f} Hz")
-            print(f"Bandwidth: {self.bandwidth:.1f} Hz")
 
     def analyze_frequency(self, samples, sr):
         samples = samples - np.mean(samples)
@@ -111,7 +93,7 @@ class AudioProcessor:
         self.mean_freq = np.sum(xf * yf) / np.sum(yf)
         self.bandwidth = np.sqrt(np.sum(((xf - self.mean_freq) ** 2) * yf) / np.sum(yf))
 
-        # self.save_plot(samples, sr, xf, yf)
+        self.save_plot(samples, sr, xf, yf)
 
     def save_plot(self, samples, sr, xf, yf):
         base = os.path.splitext(os.path.basename(self.audio_path))[0]
@@ -133,17 +115,6 @@ class AudioProcessor:
         plt.tight_layout()
         os.makedirs("plots", exist_ok=True)
         plt.savefig(f"plots/{base}.png")
-        plt.close()
-
-        bands = [(0, 250), (250, 500), (500, 1000), (1000, 3000), (3000, 6000), (6000, 8000)]
-        energy = [np.sum(yf[(xf >= low) & (xf < high)]) for low, high in bands]
-        labels = ["<250", "250–500", "500–1k", "1k–3k", "3k–6k", "6k–8k"]
-
-        plt.bar(labels, energy)
-        plt.title("Frequency Band Energy")
-        plt.ylabel("Magnitude")
-        plt.tight_layout()
-        plt.savefig(f"plots/{base}_bands.png")
         plt.close()
 
     def apply_vad(self):
@@ -189,9 +160,8 @@ class AudioProcessor:
 
     def process(self):
         self.preprocess()
-        self.enhance_clarity()
         self.analyze_quality()
         if not self.should_reject:
             self.apply_vad()
-        # self.log_to_csv()
+        self.log_to_csv()
         return not self.should_reject
