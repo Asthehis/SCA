@@ -27,9 +27,9 @@ def process_audio_pipeline(audio_path):
             return
 
         # Transcription
-        #transcriber = Transcriber(processor.cleaned_path)
-        #transcriber.transcribe()
-        #transcriber.save_transcript()
+        transcriber = Transcriber(processor.cleaned_path)
+        transcriber.transcribe()
+        transcriber.save_transcript()
 
         print(f"[{thread_name}] : Audio traité avec succès ({audio_path}).")
 
